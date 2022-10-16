@@ -45,6 +45,12 @@
     <script src="https://telegram.org/js/telegram-web-app.js%22%3E"></script>
 
     <script>
+
+        let tg = Telegram.WebApp;
+        tg.expand();
+        tg.MainButton.setText("Отправить Заказ")
+        tg.MainButton.textColor = '#ABFFAB'
+
         let cards = document.querySelectorAll('.card')
 
         for (let card of cards) {
