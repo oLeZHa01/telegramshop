@@ -42,23 +42,30 @@
 
     <input type="hidden" value="" id="cart">
 
-    <script src="https://telegram.org/js/telegram-web-app.js%22%3E"></script>
-
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <script>
-
         let tg = Telegram.WebApp;
         tg.expand();
-        tg.MainButton.setText("Отправить Заказ")
-        tg.MainButton.textColor = '#ABFFAB'
+        tg.MainButton.setText("Отправить заказ");
+        tg.MainButton.textColor = '#202020';
+           tg.MainButton.color = '#999999';
+        // let btn = document.querySelector("#btn");
+
+        tg.MainButton.show();
+
 
         let cards = document.querySelectorAll('.card')
 
         for (let card of cards) {
             card.addEventListener('click', function() {
-                document.querySelector('#cart').value +=", " + card.dataset.id
-                console.log(document.querySelector('#cart').value)
+                document.querySelector('#cart').value += ", " + card.dataset.id
+                //console.log(document.querySelector('#cart').value)
             })
         }
-    </script>
+
+        Telegram.WebApp.onEvent('mainButtonClicked', function() {
+            tg.sendData(document.querySelector('#cart').value);
+        })
+        </script>
 </body>
 </html>
