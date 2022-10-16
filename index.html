@@ -1,71 +1,69 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>магазин</title>
-    <style>
-        body{
-            background-color:#303030;
-            color: #ff74f8;
-            flex-direction: column;
-            align-items: center;
-            font-size: 18px;
-        }
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Магазин</title>
+        <style>
+            body {
+                background-color: #303030;
+                color: rgb(37, 94, 199);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                font-size: 18px;
+            }
 
-        .card{
-            background-color: orange;
-            width: 200px;
-            height: 240px;
+            .card {
+                background-color:chocolate;
+                width: 200px;
+                height: 250px;
+                text-align: center;
+            }
 
-        }
-        .card img{
-            width: 360px;
-            height: 200px;
-        }
-    </style>
-</head>
-<body>
-    
+            .card img{
+                width: 200px;
+                height: 200px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="card" data-id="1">
+            <img src="burger.jpg">
+            <p>350 р.</p>
+        </div>
+        <div class="card" data-id="2">
+            <img src="pizza.jpg">
+            <p>550 р.</p>
+        </div>
 
+        <input type="hidden" value="" id="cart">
 
+        <script src="https://telegram.org/js/telegram-web-app.js"></script>
+        <script>
+            let tg = Telegram.WebApp;
+            tg.expand();
+            tg.MainButton.setText("Отправить заказ");
+            tg.MainButton.textColor = '#202020';
+            tg.MainButton.color = '#999999';
+            
+            // let btn = document.querySelector("#btn");
 
-    <div class="card" data-id="1">
-        <img src="kfc.jpg">
-        <p>300 p.</p>
-    </div>
-    <div class="card" data-id="2">
-        <img src="kfc2.jpg">
-        <p>500 p.</p>
-    </div>
-
-    <input type="hidden" value="" id="cart">
-
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <script>
-        let tg = Telegram.WebApp;
-        tg.expand();
-        tg.MainButton.setText("Отправить заказ");
-        tg.MainButton.textColor = '#202020';
-           tg.MainButton.color = '#999999';
-        // let btn = document.querySelector("#btn");
-
-        tg.MainButton.show();
+            tg.MainButton.show();
 
 
-        let cards = document.querySelectorAll('.card')
+            let cards = document.querySelectorAll('.card')
 
-        for (let card of cards) {
-            card.addEventListener('click', function() {
-                document.querySelector('#cart').value += ", " + card.dataset.id
-                //console.log(document.querySelector('#cart').value)
+            for (let card of cards) {
+                card.addEventListener('click', function() {
+                    document.querySelector('#cart').value += ", " + card.dataset.id
+                    //console.log(document.querySelector('#cart').value)
+                })
+            }
+
+            Telegram.WebApp.onEvent('mainButtonClicked', function() {
+                tg.sendData(document.querySelector('#cart').value);
             })
-        }
-
-        Telegram.WebApp.onEvent('mainButtonClicked', function() {
-            tg.sendData(document.querySelector('#cart').value);
-        })
         </script>
-</body>
+    </body>
 </html>
